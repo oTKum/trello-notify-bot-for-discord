@@ -1,0 +1,22 @@
+{
+  "name": "trello-notify-bot-for-discord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oTKum/trello-notify-bot-for-discord.git"
+  },
+  "keywords": [],
+  "author": "otokoume",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oTKum/trello-notify-bot-for-discord/issues"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
