@@ -1,4 +1,5 @@
-const fetch = require('node-fetch');
+const fetch  = require('node-fetch');
+const logger = require('../utils/logger');
 
 require('dotenv').config();
 
@@ -32,12 +33,15 @@ class TrelloApi {
      * @returns {Promise<any | void>}
      */
     get(target, id, urlParams = {}) {
-        const url    = TrelloApi._apiUrlBase + `${target}/${id}`;
         const params = new URLSearchParams({ key: TRELLO_KEY, token: TRELLO_TOKEN, ...urlParams }).toString();
+        const url    = TrelloApi._apiUrlBase + `${target}/${id}?${params}`;
 
-        return TrelloApi._getFetch(`${url}?${params}`)
-                        .then(res => res.json())
-                        .catch(err => console.error(err));
+        return TrelloApi._getFetch(url)
+                        .then(res => {
+                            logger.info('GET to Trello: ', url);
+                            return res.json();
+                        })
+                        .catch(err => logger.error('Error: ', err));
     }
 
     /**

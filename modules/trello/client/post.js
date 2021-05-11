@@ -1,5 +1,6 @@
 const moment         = require('moment');
 const discordHandler = require('../../discord/handler');
+const logger         = require('../../utils/logger');
 
 require('dotenv').config();
 
@@ -12,6 +13,8 @@ const { TRELLO_ID_BOARD, TRELLO_ID_LIST_PENDING } = process.env;
  */
 module.exports = async (req, res) => {
     res.sendStatus(200);
+
+    logger.info('POST from Trello');
 
     const action = req.body.action;
 

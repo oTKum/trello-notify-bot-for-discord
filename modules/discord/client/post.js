@@ -1,5 +1,6 @@
 const fetch     = require('node-fetch');
 const TrelloApi = require('../../trello/TrelloApi');
+const logger    = require('../../utils/logger');
 
 require('dotenv').config();
 
@@ -79,5 +80,6 @@ module.exports = async (action) => {
         },
         body   : JSON.stringify(embed)
     })
-        .catch(err => console.error(err));
+        .then(res => logger.info('POST to Discord'))
+        .catch(err => logger.error('Error: ', err));
 };
