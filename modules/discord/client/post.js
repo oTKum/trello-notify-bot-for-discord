@@ -19,13 +19,16 @@ const MEMBERS = JSON.parse(process.env.MEMBERS);
 module.exports = async (action) => {
     let mentions = MEMBERS[TRELLO_ID_LEADER];
 
-    // プログラマーラベルがある場合、Discordのメンションにプログラムリーダーを追加
-    await TrelloApi.get('card', action.data.card.id, { 'fields': 'labels' })
-                   .then(data => {
-                       if (data.labels.every(v => v.id !== TRELLO_ID_LABEL_PG)) return null;
+    // 変更者がPGリーダーではなく
+    if (action.memberCreator.id !== TRELLO_ID_PG_LEADER) {
+        // PGラベルがある場合、DiscordのメンションにPGリーダーを追加
+        await TrelloApi.get('card', action.data.card.id, { 'fields': 'labels' })
+                       .then(data => {
+                           if (data.labels.every(v => v.id !== TRELLO_ID_LABEL_PG)) return null;
 
-                       mentions += ` ${MEMBERS[TRELLO_ID_PG_LEADER]}`;
-                   });
+                           mentions += ` ${MEMBERS[TRELLO_ID_PG_LEADER]}`;
+                       });
+    }
 
     // 各種情報を解析
     const targetCardName = action.data.card.name;
