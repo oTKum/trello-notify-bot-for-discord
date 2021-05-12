@@ -41,8 +41,11 @@ module.exports = async (action) => {
     const userIconUrl    = action.memberCreator.avatarUrl + '/170.png';
     const targetCardUrl  = TrelloApi.getShortUrl(action.data.card.shortLink);
 
+    const eCard = '<:trello_card:842003076906614784>';
+    const eList = '<:trello_list:842003103100174336>';
+
     const embed = {
-        content: `${mentions} カード **${targetCardName}** の配置リストが **${listFrom}** から **${listTo}** に移動されました。確認をお願いします。`,
+        content: `${mentions} ${eCard} **${targetCardName}** が ${eList} **${listFrom}** から ${eList} **${listTo}** に移動されました。確認をお願いします。`,
         embeds : [{
             description: `(${workersDiscord})`,
             color      : 31167,
@@ -54,22 +57,22 @@ module.exports = async (action) => {
             },
             fields     : [
                 {
-                    name : '対象カード',
-                    value: `[${targetCardName}](${targetCardUrl})`
+                    name : '**対象カード**',
+                    value: `${eCard} [${targetCardName}](${targetCardUrl})`
                 },
                 {
-                    name  : '移動前のリスト',
-                    value : listFrom,
+                    name  : '**移動前のリスト**',
+                    value : `${eList} ${listFrom}`,
                     inline: true
                 },
                 {
-                    name  : '→',
+                    name  : '**→**',
                     value : '\u200B',
                     inline: true
                 },
                 {
-                    name  : '移動後のリスト',
-                    value : listTo,
+                    name  : '**移動後のリスト**',
+                    value : `${eList} ${listTo}`,
                     inline: true
                 }
             ]
